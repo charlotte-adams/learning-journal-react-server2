@@ -48,7 +48,6 @@ const createPost = (request, response) => {
     "INSERT INTO blog_posts (title, author, created_on, body, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *",
     [title, author, created_on, body, tags],
     (error, results) => {
-      console.log(results);
       if (error) {
         throw error;
       }
@@ -84,11 +83,21 @@ const deletePost = (request, response) => {
     response.status(200).send(`Blog Post deleted with ID: ${id}`);
   });
 };
+//  get all author names - no duplicates
+const getAllAuthorNames = (request, response) => {
+  pool.query("SELECT DISTINCT author FROM blog_posts", (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
 
 module.exports = {
   getPosts,
   getPostById,
   createPost,
   updatePost,
-  deletePost
+  deletePost,
+  getAllAuthorNames
 };

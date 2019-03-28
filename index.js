@@ -20,6 +20,7 @@ app.get("/blog_posts/:id", db.getPostById);
 app.post("/blog_posts", db.createPost);
 app.put("/blog_posts/:id", db.updatePost);
 app.delete("/blog_posts/:id", db.deletePost);
+app.get("/blog_posts/:author", db.getAllAuthorNames);
 
 const port = process.env.PORT;
 app.listen(port, () => {
