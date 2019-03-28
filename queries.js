@@ -85,7 +85,7 @@ const deletePost = (request, response) => {
 };
 //  get all author names - no duplicates
 const getAllAuthorNames = (request, response) => {
-  pool.query("SELECT DISTINCT author FROM blog-posts", (error, results) => {
+  pool.query("SELECT DISTINCT author FROM blog_posts", (error, results) => {
     if (error) {
       throw error;
     }
