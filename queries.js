@@ -42,7 +42,9 @@ const getPostById = (request, response) => {
 };
 // Add a new post
 const createPost = (request, response) => {
-  const { title, author, created_on, body, tags } = request.body;
+  const { title, author, body, tags } = request.body;
+
+  const created_on = new Date();
 
   pool.query(
     "INSERT INTO blog_posts (title, author, created_on, body, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *",
@@ -76,7 +78,7 @@ const updatePost = (request, response) => {
 const deletePost = (request, response) => {
   const id = parseInt(request.params.id);
 
-  pool.query("SELECT FROM blog_posts WHERE id = $1", [id], (error, results) => {
+  pool.query("DELETE FROM blog_posts WHERE id = $1", [id], (error, results) => {
     if (error) {
       throw error;
     }
