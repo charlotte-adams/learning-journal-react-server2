@@ -17,7 +17,7 @@ pool.query(
   [
     "my title",
     "mickey mouse",
-    created_on,
+    "created_on",
     "Winnie the Pooh likes honey!",
     ["honey", "bees"]
   ],
