@@ -48,15 +48,16 @@ const getMostCurrentPost = (request, response) => {
     (error, results) => {
       if (error) {
         throw error;
+        ("");
       }
-      response.status(200).json(results.rows);
+      response.status(200).json(results.rows[0]);
     }
   );
 };
 
 // Add a new post
 const createPost = (request, response) => {
-  const { title, author, body, tags } = request.body;
+  const { title, author, body, tags } = request.body.blogPost;
 
   const created_on = new Date();
 

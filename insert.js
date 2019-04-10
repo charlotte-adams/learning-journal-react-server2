@@ -10,14 +10,14 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const created_on = new Date();
+// const created_on = new Date();
 
 pool.query(
   "INSERT INTO blog_posts (title, author, created_on, body, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *",
   [
     "my title",
     "mickey mouse",
-    "created_on",
+    // "created_on",
     "Winnie the Pooh likes honey!",
     ["honey", "bees"]
   ],
