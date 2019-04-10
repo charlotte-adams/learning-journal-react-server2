@@ -36,13 +36,28 @@ const getPostById = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(200).json(results.rows);
+      response.status(200).json(results.rows[0]);
     }
   );
 };
+// Get most current post by date
+const getMostCurrentPost = (request, response) => {
+  pool.query(
+    "SELECT * FROM blog_posts ORDER BY created_on DESC LIMIT 1",
+
+    (error, results) => {
+      if (error) {
+        throw error;
+        ("");
+      }
+      response.status(200).json(results.rows[0]);
+    }
+  );
+};
+
 // Add a new post
 const createPost = (request, response) => {
-  const { title, author, body, tags } = request.body;
+  const { title, author, body, tags } = request.body.blogPost;
 
   const created_on = new Date();
 
@@ -98,6 +113,7 @@ const getAllAuthorNames = (request, response) => {
 module.exports = {
   getPosts,
   getPostById,
+  getMostCurrentPost,
   createPost,
   updatePost,
   deletePost,

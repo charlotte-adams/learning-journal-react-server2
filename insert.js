@@ -10,18 +10,14 @@ const pool = new Pool({
   port: process.env.DB_PORT
 });
 
-const created_on = new Date();
-
 pool.query(
-  "INSERT INTO blog_posts (title, author, created_on, body, tags) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+  "INSERT INTO blog_posts (title, author, body, tags) VALUES ($1, $2, $3, $4,) RETURNING *",
   [
     "my title",
     "mickey mouse",
-    created_on,
     "Winnie the Pooh likes honey!",
     ["honey", "bees"]
   ],
-  // [title, author, created_on, body, tags]
   (error, results) => {
     if (error) {
       throw error;
