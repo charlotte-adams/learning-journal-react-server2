@@ -19,7 +19,8 @@ pool.on("error", (err, client) => {
 const getPosts = (request, response) => {
   pool.query("SELECT * FROM blog_posts ORDER BY id ASC", (error, results) => {
     if (error) {
-      throw error;
+      console.error(error);
+      response.status(500).json({ error: error });
     }
     response.status(200).json(results.rows);
   });
@@ -34,7 +35,8 @@ const getPostById = (request, response) => {
     [id],
     (error, results) => {
       if (error) {
-        throw error;
+        console.error(error);
+        response.status(500).json({ error: error });
       }
       response.status(200).json(results.rows[0]);
     }
@@ -47,7 +49,8 @@ const getMostCurrentPost = (request, response) => {
 
     (error, results) => {
       if (error) {
-        throw error;
+        console.error(error);
+        response.status(500).json({ error: error });
       }
       response.status(200).json(results.rows[0]);
     }
@@ -65,7 +68,8 @@ const createPost = (request, response) => {
     [title, author, created_on, body, tags],
     (error, results) => {
       if (error) {
-        throw error;
+        console.error(error);
+        response.status(500).json({ error: error });
       }
       response.status(201).send(`Post added with ID: ${results.rows[0].id}`);
     }
@@ -81,7 +85,8 @@ const updatePost = (request, response) => {
     [title, author, created_on, body, tags, id],
     (error, results) => {
       if (error) {
-        throw error;
+        console.error(error);
+        response.status(500).json({ error: error });
       }
       response.status(200).send(`Post modified with ID: ${id}`);
     }
@@ -94,7 +99,8 @@ const deletePost = (request, response) => {
 
   pool.query("DELETE FROM blog_posts WHERE id = $1", [id], (error, results) => {
     if (error) {
-      throw error;
+      console.error(error);
+      response.status(500).json({ error: error });
     }
     response.status(200).send(`Blog Post deleted with ID: ${id}`);
   });
@@ -103,7 +109,8 @@ const deletePost = (request, response) => {
 const getAllAuthorNames = (request, response) => {
   pool.query("SELECT DISTINCT author FROM blog_posts", (error, results) => {
     if (error) {
-      throw error;
+      console.error(error);
+      response.status(500).json({ error: error });
     }
     response.status(200).json(results.rows);
   });
